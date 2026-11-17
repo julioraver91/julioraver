@@ -17,3 +17,33 @@ section{padding:112px 0}.section-heading{font-size:clamp(38px,5.5vw,64px);line-h
 /* Keep the Power Boost card copy readable and naturally ragged on the right. */
 .projects .card p{text-align:left;text-wrap:pretty;hyphens:none}
 .detail-contact .label{justify-content:center}
+
+
+/* Floating Power Boost video cover flow */
+.pb-gallery{padding-top:50px}
+.pb-gallery .section-intro{margin-bottom:8px}
+.pb-carousel{max-width:1040px;margin-inline:auto;--pb-red:rgba(239,90,90,.24)}
+.pb-viewport{position:relative;isolation:isolate;height:clamp(560px,60vw,700px);perspective:1500px;transform-style:preserve-3d;overflow:hidden;border:0;border-radius:0;background:transparent;box-shadow:none;touch-action:pan-y}
+.pb-viewport:before,.pb-viewport:after{content:"";position:absolute;z-index:-1;left:50%;top:48%;width:min(70vw,690px);aspect-ratio:1;border-radius:50%;pointer-events:none;filter:blur(80px);transform:translate(-50%,-50%)}
+.pb-viewport:before{background:radial-gradient(circle,rgba(239,90,90,.2),rgba(112,30,43,.09) 42%,transparent 72%)}
+.pb-viewport:after{top:83%;width:min(60vw,560px);background:radial-gradient(ellipse,rgba(155,169,197,.11),transparent 68%);filter:blur(50px)}
+.pb-slide[hidden]{display:none}
+.pb-slide{position:absolute;left:50%;top:50%;width:clamp(240px,31vw,350px);aspect-ratio:9/16;overflow:hidden;border:1px solid rgba(255,255,255,.17);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.015) 34%),#090a0c;box-shadow:0 32px 90px rgba(0,0,0,.72),0 0 42px rgba(239,90,90,.1);opacity:0;visibility:hidden;transform:translate(-50%,-50%) translateZ(-240px) scale(.68);transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.75,.2,1),opacity .55s ease,filter .55s ease,border-color .55s ease;filter:blur(3px) saturate(.65);pointer-events:none}
+.pb-slide video{display:block;width:100%;height:100%;object-fit:contain;background:#050607}
+.pb-slide.is-current{z-index:3;opacity:1;visibility:visible;transform:translate(-50%,-50%) translateZ(90px) scale(1) rotateY(0);filter:none;border-color:rgba(255,255,255,.28);box-shadow:0 38px 100px rgba(0,0,0,.76),0 0 58px rgba(239,90,90,.18);pointer-events:auto}
+.pb-slide.is-current video{animation:pb-float 5.5s ease-in-out infinite}
+.pb-slide.is-prev,.pb-slide.is-next{z-index:2;opacity:.72;visibility:visible;filter:blur(.7px) saturate(.72);pointer-events:auto;cursor:pointer}
+.pb-slide.is-prev{left:13%;transform:translate(-50%,-50%) translateZ(-130px) scale(.82) rotateY(25deg)}
+.pb-slide.is-next{left:87%;transform:translate(-50%,-50%) translateZ(-130px) scale(.82) rotateY(-25deg)}
+.pb-slide.is-prev video,.pb-slide.is-next video{pointer-events:none}
+@keyframes pb-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.pb-controls{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:-4px;padding:10px 4px 0}
+.pb-arrow{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(255,255,255,.15);border-radius:50%;background:rgba(17,19,22,.78);backdrop-filter:blur(12px);color:var(--text);font-size:21px;cursor:pointer;transition:background .2s,border-color .2s,transform .2s,box-shadow .2s}
+.pb-arrow:hover{transform:translateY(-2px);border-color:rgba(239,90,90,.65);background:rgba(239,90,90,.18);box-shadow:0 0 24px rgba(239,90,90,.16)}
+.pb-arrow:focus-visible,.pb-dot:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+.pb-pagination{display:flex;align-items:center;justify-content:center;gap:10px}
+.pb-dot{width:8px;height:8px;padding:0;border:0;border-radius:99px;background:#585b60;cursor:pointer;transition:background .25s,width .25s,box-shadow .25s}
+.pb-dot[aria-pressed="true"]{width:24px;background:var(--red);box-shadow:0 0 14px rgba(239,90,90,.52)}
+.pb-count{min-width:42px;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;text-align:center}
+@media(max-width:700px){.pb-gallery{padding-top:30px}.pb-viewport{height:clamp(470px,126vw,600px)}.pb-slide{width:clamp(190px,62vw,310px);border-radius:20px}.pb-slide.is-prev{left:8%;transform:translate(-50%,-50%) translateZ(-100px) scale(.8) rotateY(23deg)}.pb-slide.is-next{left:92%;transform:translate(-50%,-50%) translateZ(-100px) scale(.8) rotateY(-23deg)}.pb-viewport:before{width:92vw;filter:blur(58px)}.pb-controls{gap:13px}.pb-arrow{width:40px;height:40px}}
+@media(prefers-reduced-motion:reduce){.pb-slide,.pb-arrow,.pb-dot{transition:none!important}.pb-slide.is-current video{animation:none}}
