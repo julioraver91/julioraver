@@ -23,15 +23,16 @@ section{padding:112px 0}.section-heading{font-size:clamp(38px,5.5vw,64px);line-h
 .pb-gallery{padding-top:50px}
 .pb-gallery .section-intro{margin-bottom:8px}
 .pb-carousel{max-width:1040px;margin-inline:auto;--pb-red:rgba(239,90,90,.24)}
-.pb-viewport{position:relative;isolation:isolate;height:clamp(560px,60vw,700px);perspective:1500px;transform-style:preserve-3d;overflow:hidden;border:0;border-radius:0;background:transparent;box-shadow:none;touch-action:pan-y}
+.pb-viewport{position:relative;isolation:isolate;height:clamp(560px,60vw,700px);perspective:1500px;transform-style:preserve-3d;overflow:hidden;border:0;border-radius:0;background:transparent;box-shadow:none;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
 .pb-viewport:before,.pb-viewport:after{content:"";position:absolute;z-index:-1;left:50%;top:48%;width:min(70vw,690px);aspect-ratio:1;border-radius:50%;pointer-events:none;filter:blur(80px);transform:translate(-50%,-50%)}
 .pb-viewport:before{background:radial-gradient(circle,rgba(239,90,90,.2),rgba(112,30,43,.09) 42%,transparent 72%)}
 .pb-viewport:after{top:83%;width:min(60vw,560px);background:radial-gradient(ellipse,rgba(155,169,197,.11),transparent 68%);filter:blur(50px)}
-.pb-slide[hidden]{display:none}
+.pb-viewport.is-dragging{cursor:grabbing}.pb-slide[hidden]{display:none}
 .pb-slide{position:absolute;left:50%;top:50%;width:clamp(240px,31vw,350px);aspect-ratio:9/16;overflow:hidden;border:1px solid rgba(255,255,255,.17);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.015) 34%),#090a0c;box-shadow:0 32px 90px rgba(0,0,0,.72),0 0 42px rgba(239,90,90,.1);opacity:0;visibility:hidden;transform:translate(-50%,-50%) translateZ(-240px) scale(.68);transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.75,.2,1),opacity .55s ease,filter .55s ease,border-color .55s ease;filter:blur(3px) saturate(.65);pointer-events:none}
-.pb-slide video{display:block;width:100%;height:100%;object-fit:contain;background:#050607}
+.pb-slide video,.pb-slide img{display:block;width:100%;height:100%;object-fit:contain;background:#050607}.pb-slide img{user-select:none;-webkit-user-drag:none}
+.pb-image-slide{aspect-ratio:2/3;border-radius:12px}.pb-image-slide img{object-fit:contain}
 .pb-slide.is-current{z-index:3;opacity:1;visibility:visible;transform:translate(-50%,-50%) translateZ(90px) scale(1) rotateY(0);filter:none;border-color:rgba(255,255,255,.28);box-shadow:0 38px 100px rgba(0,0,0,.76),0 0 58px rgba(239,90,90,.18);pointer-events:auto}
-.pb-slide.is-current video{animation:pb-float 5.5s ease-in-out infinite}
+.pb-slide.is-current video,.pb-slide.is-current img{animation:pb-float 5.5s ease-in-out infinite}
 .pb-slide.is-prev,.pb-slide.is-next{z-index:2;opacity:.72;visibility:visible;filter:blur(.7px) saturate(.72);pointer-events:auto;cursor:pointer}
 .pb-slide.is-prev{left:13%;transform:translate(-50%,-50%) translateZ(-130px) scale(.82) rotateY(25deg)}
 .pb-slide.is-next{left:87%;transform:translate(-50%,-50%) translateZ(-130px) scale(.82) rotateY(-25deg)}
@@ -46,4 +47,30 @@ section{padding:112px 0}.section-heading{font-size:clamp(38px,5.5vw,64px);line-h
 .pb-dot[aria-pressed="true"]{width:24px;background:var(--red);box-shadow:0 0 14px rgba(239,90,90,.52)}
 .pb-count{min-width:42px;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;text-align:center}
 @media(max-width:700px){.pb-gallery{padding-top:30px}.pb-viewport{height:clamp(470px,126vw,600px)}.pb-slide{width:clamp(190px,62vw,310px);border-radius:20px}.pb-slide.is-prev{left:8%;transform:translate(-50%,-50%) translateZ(-100px) scale(.8) rotateY(23deg)}.pb-slide.is-next{left:92%;transform:translate(-50%,-50%) translateZ(-100px) scale(.8) rotateY(-23deg)}.pb-viewport:before{width:92vw;filter:blur(58px)}.pb-controls{gap:13px}.pb-arrow{width:40px;height:40px}}
-@media(prefers-reduced-motion:reduce){.pb-slide,.pb-arrow,.pb-dot{transition:none!important}.pb-slide.is-current video{animation:none}}
+@media(prefers-reduced-motion:reduce){.pb-slide,.pb-arrow,.pb-dot{transition:none!important}.pb-slide.is-current video,.pb-slide.is-current img{animation:none}}
+
+.pb-swipe-hint{position:absolute;z-index:5;left:50%;bottom:26px;display:flex;align-items:center;gap:10px;padding:10px 15px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(8,9,11,.72);backdrop-filter:blur(14px);color:rgba(255,255,255,.88);font-size:11px;letter-spacing:.02em;white-space:nowrap;opacity:0;transform:translate(-50%,8px);transition:opacity .35s ease,transform .35s ease;pointer-events:none}.pb-swipe-hint span:first-child{color:#ff969a;font-size:16px}.pb-carousel.is-intro .pb-viewport:hover .pb-swipe-hint,.pb-carousel.is-intro .pb-viewport:focus-within .pb-swipe-hint{opacity:1;transform:translate(-50%,0)}
+@media(hover:none){.pb-carousel.is-intro .pb-swipe-hint{bottom:16px;padding:8px 12px;font-size:10px;opacity:1;transform:translate(-50%,0)}}
+@media(prefers-reduced-motion:reduce){.pb-swipe-hint{transition:none}}
+
+.pb-carousel:focus-visible{outline:2px solid var(--red);outline-offset:8px;border-radius:20px}
+
+.detail-contact .section-intro{margin-inline:auto;text-align:center}
+
+
+/* Quiet, persistent WhatsApp shortcut for every page. */
+.whatsapp-float{position:fixed;z-index:100;right:16px;right:calc(env(safe-area-inset-right,0px) + 16px);bottom:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);display:grid;place-items:center;width:54px;height:54px;border:1px solid rgba(255,255,255,.24);border-radius:50%;background:#25d366;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.34),0 0 18px rgba(37,211,102,.16);transition:transform .22s ease,background .22s ease,box-shadow .22s ease}
+.whatsapp-float svg{display:block;width:28px;height:28px}
+.whatsapp-float:hover{transform:translateY(-3px);background:#1fbd5a;box-shadow:0 10px 28px rgba(0,0,0,.4),0 0 24px rgba(37,211,102,.28)}
+.whatsapp-float:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.whatsapp-float:after{content:"Escríbenos por WhatsApp";position:absolute;right:calc(100% + 10px);top:50%;padding:9px 12px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(13,15,17,.94);backdrop-filter:blur(12px);color:#f5f5f5;font-size:12px;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transform:translate(5px,-50%);transition:opacity .2s ease,transform .2s ease}
+.whatsapp-float:hover:after,.whatsapp-float:focus-visible:after{opacity:1;transform:translate(0,-50%)}
+@media(max-width:600px){.whatsapp-float{width:50px;height:50px}.whatsapp-float svg{width:26px;height:26px}}
+@media(prefers-reduced-motion:reduce){.whatsapp-float,.whatsapp-float:after{transition:none}}
+
+
+/* Image carousel for Raver Impresión 3D */
+.three-d-carousel .pb-slide{width:clamp(240px,34vw,390px);aspect-ratio:4/5}
+.three-d-carousel .pb-slide img{object-fit:contain}
+.three-d-carousel .pb-controls{flex-wrap:wrap}
+@media(max-width:700px){.three-d-carousel .pb-slide{width:clamp(200px,67vw,320px)}.three-d-carousel .pb-controls{gap:8px}.three-d-carousel .pb-arrow{width:36px;height:36px}.three-d-carousel .pb-pagination{gap:6px}.three-d-carousel .pb-dot{width:7px;height:7px}.three-d-carousel .pb-dot[aria-pressed="true"]{width:20px}.three-d-carousel .pb-count{min-width:32px}}
